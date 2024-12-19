@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Register</h2>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name">
+            <div class="error" id="firstnameError"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" placeholder="Enter your last name">
+            <div class="error" id="lastnameError"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address">
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            <div class="error" id="passwordError"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Sign In">
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let valid = true;
+
+        // Clear previous errors
+        document.getElementById("firstnameError").innerText = "";
+        document.getElementById("lastnameError").innerText = "";
+        document.getElementById("emailError").innerText = "";
+        document.getElementById("passwordError").innerText = "";
+        document.getElementById("confirmPasswordError").innerText = "";
+
+        // Validate First Name
+        const firstname = document.getElementById("firstname").value.trim();
+        if (firstname === "") {
+            document.getElementById("firstnameError").innerText = "First Name is required";
+            valid = false;
+        }
+
+        // Validate Last Name
+        const lastname = document.getElementById("lastname").value.trim();
+        if (lastname === "") {
+            document.getElementById("lastnameError").innerText = "Last Name is required";
+            valid = false;
+        }
+
+        // Validate Email Address
+        const email = document.getElementById("email").value.trim();
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (email === "") {
+            document.getElementById("emailError").innerText = "Email Address is required";
+            valid = false;
+        } else if (!emailRegex.test(email)) {
+            document.getElementById("emailError").innerText = "Please enter a valid email address";
+            valid = false;
+        }
+
+        // Validate Password
+        const password = document.getElementById("password").value.trim();
+        if (password === "") {
+            document.getElementById("passwordError").innerText = "Password is required";
+            valid = false;
+        }
+
+        // Validate Confirm Password
+        const confirmPassword = document.getElementById("confirmPassword").value.trim();
+        if (confirmPassword === "") {
+            document.getElementById("confirmPasswordError").innerText = "Confirm Password is required";
+            valid = false;
+        } else if (confirmPassword !== password) {
+            document.getElementById("confirmPasswordError").innerText = "Passwords do not match";
+            valid = false;
+        }
+
+        // If all fields are valid, show success
+        if (valid) {
+            alert("Registration Successful!");
+        }
+    });
+</script>
+
+</body>
+</html>
